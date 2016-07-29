@@ -6,4 +6,17 @@
 
     <string name="action_settings">Settings</string>
     <string name="title_activity_maps">Map</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="next">Next</string>
+
+    <string-array name="crime_types">
+        <item>Robo</item>
+        <item>Asalto</item>
+        <item>Secuestro</item>
+        <item>Asesinato</item>
+    </string-array>
+
+
 </resources>

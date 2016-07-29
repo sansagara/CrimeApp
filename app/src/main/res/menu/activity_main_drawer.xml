@@ -3,33 +3,48 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/shield_outline"
-            android:title="Crear Evento" />
-        <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/motorbike"
-            android:title="Cargar Delito" />
-        <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_view_map"
             android:icon="@drawable/map_marker_radius"
             android:title="Ver Mapa" />
         <item
-            android:id="@+id/nav_manage"
+            android:id="@+id/nav_view_history"
             android:icon="@drawable/history"
             android:title="Ver Historial" />
     </group>
 
-    <item android:title="Policia Cientifica">
+    <item android:title="Gestionar Casos">
         <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/face_profile"
-                android:title="Perfil" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_add_location_black_24dp"
-                android:title="Locacion" />
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_new_event"
+                    android:icon="@drawable/shield_outline"
+                    android:title="Crear Evento" />
+                <item
+                    android:id="@+id/nav_new_crime"
+                    android:icon="@drawable/motorbike"
+                    android:title="Cargar Delito" />
+            </group>
+        </menu>
+    </item>
+
+    <item android:title="Administrar">
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_share"
+                    android:icon="@drawable/face_profile"
+                    android:title="Perfil" />
+
+                <item
+                    android:id="@+id/nav_settings"
+                    android:icon="@drawable/ic_menu_manage"
+                    android:title="Ajustes" />
+
+                <item
+                    android:id="@+id/nav_quides"
+                    android:icon="@drawable/help_circle"
+                    android:title="Guias" />
+            </group>
         </menu>
     </item>
 

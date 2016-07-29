@@ -1,9 +1,9 @@
 package com.leonel.crimeapp;
 
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,23 +14,18 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
+import com.leonel.crimeapp.fragments.NewCrime;
+import com.leonel.crimeapp.fragments.NewEvent;
+import com.leonel.crimeapp.fragments.ViewMap;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,
-        OnMapReadyCallback {
+        implements NavigationView.OnNavigationItemSelectedListener {
 
-    private GoogleMap mMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -53,10 +48,9 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        //For the Map
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+        FragmentManager fm = getFragmentManager();
+        fm.beginTransaction().replace(R.id.main_container, new ViewMap()).commit();
+
     }
 
     @Override
@@ -94,63 +88,22 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
+        FragmentManager fm = getFragmentManager();
+
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
+        if (id == R.id.nav_view_map) {
+            fm.beginTransaction().replace(R.id.main_container, new ViewMap()).commit();
+        } else if (id == R.id.nav_view_history) {
+            //fm.beginTransaction().replace(R.id.main_container, new GmapFragment()).commit();
+        } else if (id == R.id.nav_new_event) {
+            fm.beginTransaction().replace(R.id.main_container, new NewEvent()).commit();
+        } else if (id == R.id.nav_new_crime) {
+            fm.beginTransaction().replace(R.id.main_container, new NewCrime()).commit();
         }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-
-        //Initial location. Need to ask for the permission.
-        try {
-            mMap.setMyLocationEnabled(true);
-        } catch  (SecurityException e) {
-            Log.d("PERM", "Location permission not granted.");
-        }
-
-        // Add markers.
-        LatLng chacao = new LatLng(10.468553, -66.960406);
-        mMap.addMarker(new MarkerOptions().position(chacao).title("Robo Simple en Chacao").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-
-        LatLng petare = new LatLng(10.485408, -66.799761);
-        mMap.addMarker(new MarkerOptions().position(petare).title("Asalto en Petare").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
-
-        LatLng guarenas = new LatLng(10.4708273, -66.6210537);
-        mMap.addMarker(new MarkerOptions().position(guarenas).title("Saqueo en Guarenas").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
-
-        LatLng candelaria = new LatLng(10.503625, -66.905279);
-        mMap.addMarker(new MarkerOptions().position(candelaria).title("Secuestro en La Candelaria").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-
-        //Center Camera on Caracas
-        LatLng caracas = new LatLng(10.468553,-66.960406);
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(caracas, 10));
-    }
 }
