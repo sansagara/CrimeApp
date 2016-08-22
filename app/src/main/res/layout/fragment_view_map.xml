@@ -5,17 +5,17 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/textView12"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Delitos en las ultimas 24 horas"
         android:gravity="center_horizontal"
-        android:id="@+id/textView12" />
+        android:text="@string/last_crimes"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <fragment android:id="@+id/map"
-        android:layout_below="@id/textView12"
+        class="com.google.android.gms.maps.MapFragment"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        class="com.google.android.gms.maps.MapFragment"/>
+        android:layout_below="@id/textView12" />
 
 </RelativeLayout>

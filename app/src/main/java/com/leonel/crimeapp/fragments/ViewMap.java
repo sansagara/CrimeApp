@@ -1,8 +1,10 @@
 package com.leonel.crimeapp.fragments;
 
 import android.app.Fragment;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,11 +16,19 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-
 import com.leonel.crimeapp.R;
+import com.leonel.crimeapp.models.PrecCrimen;
+import com.leonel.crimeapp.rest.ApiClient;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ViewMap extends Fragment implements OnMapReadyCallback {
 
+    private List<PrecCrimen> prec_crimen;
 
     @Nullable
     @Override
@@ -36,23 +46,52 @@ public class ViewMap extends Fragment implements OnMapReadyCallback {
 
     @Override
     public void onMapReady(GoogleMap mMap) {
-
-        // Add markers.
-        LatLng chacao = new LatLng(10.468553, -66.960406);
-        mMap.addMarker(new MarkerOptions().position(chacao).title("Robo Simple en Chacao").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-
-        LatLng petare = new LatLng(10.485408, -66.799761);
-        mMap.addMarker(new MarkerOptions().position(petare).title("Asalto en Petare").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW)));
-
-        LatLng guarenas = new LatLng(10.4708273, -66.6210537);
-        mMap.addMarker(new MarkerOptions().position(guarenas).title("Saqueo en Guarenas").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN)));
-
-        LatLng candelaria = new LatLng(10.503625, -66.905279);
-        mMap.addMarker(new MarkerOptions().position(candelaria).title("Secuestro en La Candelaria").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-
-        //Center Camera on Caracas
-        LatLng caracas = new LatLng(10.468553,-66.960406);
-        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(caracas, 10));
-
+        getPrecCrimenList(mMap);
     }
+
+    private void getPrecCrimenList(final GoogleMap mMap) {
+        final ProgressDialog loading = ProgressDialog.show(getActivity(), "Loading", "Please wait for the load", false, false);
+
+        Call<List<PrecCrimen>> call = ApiClient.get().getPrecCrimen();
+
+        call.enqueue(new Callback<List<PrecCrimen>>() {
+            @Override
+            public void onFailure(Call<List<PrecCrimen>> call, Throwable t) {
+                Log.d("REST", "Error Occurred: " + t.getMessage());
+                loading.dismiss();
+            }
+
+            @Override
+            public void onResponse(Call<List<PrecCrimen>> call, Response<List<PrecCrimen>> response) {
+                Log.d("REST", "Successfully response fetched");
+                loading.dismiss();
+
+                prec_crimen = response.body();
+
+                if (prec_crimen.size() > 0) {
+                    Log.d("REST", prec_crimen.toString());
+
+
+                    for (int i = 0; i < prec_crimen.size(); i++) {
+                        PrecCrimen crimen = prec_crimen.get(i);
+                        // Add markers.
+                        LatLng marker = new LatLng(crimen.getNu_lat(), crimen.getNu_long());
+                        mMap.addMarker(new MarkerOptions().position(marker).title(crimen.getTx_movil()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+
+                    }
+
+                    //Center Camera on Caracas
+                    LatLng caracas = new LatLng(10.468553, -66.960406);
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(caracas, 10));
+
+
+                } else {
+                    Log.d("REST", "No item found");
+                }
+            }
+        });
+    }
+
+
+
 }

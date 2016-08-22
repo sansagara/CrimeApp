@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CrimeApp</string>
+    <string name="action_settings">Ajustes</string>
+    <string name="hello_blank_fragment">Hola Fragmento vacio</string>
+    <string name="loading_please_wait">Favor espere mientras carga la data!</string>
+    <string name="loading_title">Cargando</string>
+    <string name="navigation_drawer_close">Cerrar cajon de navegacion</string>
+    <string name="navigation_drawer_open">Abrir cajon de navegacion</string>
+    <string name="next">Siguiente</string>
+    <string name="title_activity_maps">Mapa</string>
+    <string name="state">Estad0</string>
+    <string name="new_event">Nuevo Evento</string>
+    <string name="local2">Parroquia</string>
+    <string name="date">Fecha</string>
+    <string name="crime">Crimen</string>
+    <string name="local">Municipio</string>
+    <string name="last_crimes">Delitos en las ultimas 24 horas</string>
+</resources>

@@ -18,5 +18,17 @@
         <item>Asesinato</item>
     </string-array>
 
+    <string name="loading_title">Loading</string>
+    <string name="loading_please_wait">Please wait while loading data!</string>
+
+    <string name="new_event">New Event</string>
+    <string name="date">Date</string>
+    <string name="lat" translatable="false">Lat</string>
+    <string name="lng" translatable="false">Long</string>
+    <string name="state">State</string>
+    <string name="local">Locality</string>
+    <string name="local2">Locality 2</string>
+    <string name="crime">Crime</string>
+    <string name="last_crimes">Crimes in the last 24 hours</string>
 
 </resources>
