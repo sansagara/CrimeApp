@@ -3,9 +3,8 @@ package com.leonel.crimeapp;
 import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -13,9 +12,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.leonel.crimeapp.fragments.NewCrime;
 import com.leonel.crimeapp.fragments.NewEvent;
+import com.leonel.crimeapp.fragments.ViewHistory;
 import com.leonel.crimeapp.fragments.ViewMap;
 
 public class MainActivity extends AppCompatActivity
@@ -95,7 +96,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_view_map) {
             fm.beginTransaction().replace(R.id.main_container, new ViewMap()).commit();
         } else if (id == R.id.nav_view_history) {
-            //fm.beginTransaction().replace(R.id.main_container, new GmapFragment()).commit();
+            fm.beginTransaction().replace(R.id.main_container, new ViewHistory()).commit();
         } else if (id == R.id.nav_new_event) {
             fm.beginTransaction().replace(R.id.main_container, new NewEvent()).commit();
         } else if (id == R.id.nav_new_crime) {
