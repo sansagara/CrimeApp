@@ -11,8 +11,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.leonel.crimeapp.R;
-import com.leonel.crimeapp.adapters.CrimeHistoryAdapter;
-import com.leonel.crimeapp.models.PrecCrimen;
+import com.leonel.crimeapp.adapters.HistoryAdapter;
+import com.leonel.crimeapp.models.PrecHistory;
 import com.leonel.crimeapp.rest.ApiClient;
 
 import java.util.List;
@@ -22,7 +22,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
- * PrecCrimen Fragment
+ * History Fragment. Consolidated view of crimes and events.
  *
  * @author APIPlug
  * @version v1.0
@@ -30,7 +30,7 @@ import retrofit2.Response;
 public class ViewHistory extends Fragment {
 
 
-    private List<PrecCrimen> prec_crimen;
+    private List<PrecHistory> prec_history;
     private ListView listView;
 
 
@@ -72,34 +72,34 @@ public class ViewHistory extends Fragment {
 
         listView = (ListView) view.findViewById(R.id.listView);
 
-        getPrecCrimenList();
+        getPrecHistoryList();
 
         return view;
     }
 
 
-    private void getPrecCrimenList() {
-        final ProgressDialog loading = ProgressDialog.show(getActivity(), getContext().getString(R.string.loading_title), getContext().getString(R.string.loading_please_wait), false, false);
+    private void getPrecHistoryList() {
+        final ProgressDialog loading = ProgressDialog.show(getActivity(), "Loading", "Please wait while we load data", false, false);
 
-        Call<List<PrecCrimen>> call = ApiClient.get().getPrecCrimen();
+        Call<List<PrecHistory>> call = ApiClient.get().getPrecHistory();
 
-        call.enqueue(new Callback<List<PrecCrimen>>() {
+        call.enqueue(new Callback<List<PrecHistory>>() {
             @Override
-            public void onFailure(Call<List<PrecCrimen>> call, Throwable t) {
+            public void onFailure(Call<List<PrecHistory>> call, Throwable t) {
                 Log.d("APIPlug", "Error Occured: " + t.getMessage());
 
                 loading.dismiss();
             }
 
             @Override
-            public void onResponse(Call<List<PrecCrimen>> call, Response<List<PrecCrimen>> response) {
+            public void onResponse(Call<List<PrecHistory>> call, Response<List<PrecHistory>> response) {
                 Log.d("APIPlug", "Successfully response fetched");
 
                 loading.dismiss();
 
-                prec_crimen = response.body();
+                prec_history = response.body();
 
-                if (prec_crimen.size() > 0) {
+                if (prec_history.size() > 0) {
                     showList();
                 } else {
                     Log.d("APIPlug", "No item found");
@@ -112,7 +112,7 @@ public class ViewHistory extends Fragment {
     private void showList() {
         Log.d("APIPlug", "Show List");
 
-        CrimeHistoryAdapter adapter = new CrimeHistoryAdapter(getActivity(), prec_crimen);
+        HistoryAdapter adapter = new HistoryAdapter(getActivity(), prec_history);
         listView.setAdapter(adapter);
 
 
@@ -120,12 +120,12 @@ public class ViewHistory extends Fragment {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                PrecCrimen clickedObj = (PrecCrimen) parent.getItemAtPosition(position);
+                PrecHistory clickedObj = (PrecHistory) parent.getItemAtPosition(position);
 
                 //Detail Activity
                 /*
-                Intent detail = new Intent(getContext(), PrecCrimenDetail.class);
-                detail.putExtra("prec_crimenObject", clickedObj);
+                Intent detail = new Intent(getContext(), PrecHistoryDetail.class);
+                detail.putExtra("prec_historyObject", clickedObj);
                 startActivity(detail);
                 */
             }

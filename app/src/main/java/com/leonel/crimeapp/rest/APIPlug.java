@@ -2,6 +2,8 @@ package com.leonel.crimeapp.rest;
 
 import com.leonel.crimeapp.models.PrecBanda;
 import com.leonel.crimeapp.models.PrecCrimen;
+import com.leonel.crimeapp.models.PrecEvento;
+import com.leonel.crimeapp.models.PrecHistory;
 
 import java.util.List;
 
@@ -26,5 +28,9 @@ public interface APIPlug {
     @GET("crimen")
     Call<List<PrecCrimen>> getPrecCrimen();
 
+    @GET("evento")
+    Call<List<PrecEvento>> getPrecEvento();
 
+    @GET("consolidado")
+    Call<List<PrecHistory>> getPrecHistory();
 }
