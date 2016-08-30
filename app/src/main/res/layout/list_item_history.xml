@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:text="Tipo:Categoria"
-                android:textStyle="bold" />
+                android:textAppearance="?android:attr/textAppearanceLarge" />
 
 
             <TextView

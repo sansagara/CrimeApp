@@ -43,7 +43,7 @@ public class HistoryAdapter extends ArrayAdapter<PrecHistory> {
             viewHolder.direccion = (TextView) convertView.findViewById(R.id.direccion);
             viewHolder.status = (TextView) convertView.findViewById(R.id.status);
             viewHolder.descripcion = (TextView) convertView.findViewById(R.id.descripcion);
-            viewHolder.lat_lng = (TextView) convertView.findViewById(R.id.lat);
+            viewHolder.lat_lng = (TextView) convertView.findViewById(R.id.lat_lng);
 
             convertView.setTag(viewHolder);
         } else {
@@ -55,10 +55,10 @@ public class HistoryAdapter extends ArrayAdapter<PrecHistory> {
         viewHolder.fecha.setText(prec_history.getFecha());
         viewHolder.estado.setText(prec_history.getEstado());
         viewHolder.municipio.setText(prec_history.getMunicipio());
-        viewHolder.parroquia.setText(prec_history.getParroquia() + "");
+        viewHolder.parroquia.setText(prec_history.getParroquia());
         viewHolder.direccion.setText(prec_history.getDireccion());
         viewHolder.status.setText(prec_history.getStatus());
-        viewHolder.descripcion.setText(prec_history.getDescripcion() + "");
+        viewHolder.descripcion.setText(prec_history.getDescripcion());
         viewHolder.lat_lng.setText(Double.toString(prec_history.getLat()) + ", " + Double.toString(prec_history.getLng()));
 
         /*
